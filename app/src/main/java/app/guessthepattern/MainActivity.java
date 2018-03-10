@@ -184,9 +184,11 @@ public class MainActivity extends AppCompatActivity {
         if (level == 0)
             return;
         int rand;
+
         do {
             rand = 0 + (int) (Math.random() * 8);
         } while (rand == last);
+
         computer += rand + " ";
         Log.d(" i :", "" + level);
         Log.d(" random :", "" + rand);
