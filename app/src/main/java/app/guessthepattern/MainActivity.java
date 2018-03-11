@@ -102,16 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 check(LEVEL, 0);
                 play.setEnabled(true);
                 watch.setEnabled(false);
-                int time = LEVEL * 5000;
-
-                new Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                    }
-                }, time);
-//                instructions.setText("Press the button 'PLAY' to guess the pattern");
-
             }
         });
 
