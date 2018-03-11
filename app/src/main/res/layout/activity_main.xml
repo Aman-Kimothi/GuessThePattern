@@ -17,10 +17,10 @@
         android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="14dp"
-        android:layout_marginEnd="50dp"
+        android:layout_below="@+id/tableLayout1"
+        android:layout_marginEnd="37dp"
+        android:layout_marginTop="16dp"
         android:text="PLAY"
         android:textSize="18sp" />
 
@@ -144,5 +144,17 @@
 
         </TableRow>
     </TableLayout>
+
+    <TextView
+        android:id="@+id/instructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/watch"
+        android:paddingTop="10dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
 </RelativeLayout>

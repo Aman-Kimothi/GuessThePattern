@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     View color[] = new View[9] ,last ;
     TableLayout table;
-    TextView tv;
+    TextView tv , instructions;
     Button watch, play;
     String computer = "", user = "";
     static int ll=1;
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         watch = (Button) findViewById(R.id.watch);
         play = (Button) findViewById(R.id.play);
         tv = (TextView) findViewById(R.id.textView);
+        instructions = (TextView) findViewById(R.id.instructions);
 
         String level = "  Level " + LEVEL;
         tv.setText(level);
@@ -84,26 +85,40 @@ public class MainActivity extends AppCompatActivity {
         color[8] = findViewById(R.id.color_9);color[8].setTag(8);
         color[8].setBackgroundColor(Color.GRAY);
 
+        instructions.setText("Press the button 'WATCH' to see the pattern");
+
         for (View v : color)
             v.getBackground().setAlpha(80);
 
         play.setEnabled(false);
 
-        watch.setOnClickListener(new OnClickListener() {
+        watch.setOnClickListener(new OnClickListener () {
             @Override
             public void onClick(View v) {
+
+                instructions.setText("");
                 v.getBackground().setAlpha(255);
                 play.setEnabled(false);
                 check(LEVEL, 0);
                 play.setEnabled(true);
                 watch.setEnabled(false);
+                int time = LEVEL * 5000;
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                    }
+                }, time);
+//                instructions.setText("Press the button 'PLAY' to guess the pattern");
+
             }
         });
 
         play.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                instructions.setText("");
                 Log.d("Combination : ", "" + computer);
                 user = "";
             }
@@ -169,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         user = computer = "";
         Log.d("Reset", " done");
 
-
+        instructions.setText("Press the button 'WATCH' to see the pattern");
 
     }
 
@@ -181,8 +196,10 @@ public class MainActivity extends AppCompatActivity {
     public void check(int level, int last) {
 
         color[last].getBackground().setAlpha(80);
-        if (level == 0)
+        if (level == 0) {
+            instructions.setText("Press the button 'PLAY' to guess the pattern");
             return;
+        }
         int rand;
 
         do {
