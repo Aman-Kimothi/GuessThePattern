@@ -41,15 +41,14 @@ import static android.R.attr.value;
 
 public class MainActivity extends AppCompatActivity {
 
-    final Handler handler = new Handler();
+//    final Handler handler = new Handler();
 
-    View color[] = new View[9] ,last ;
+    View color[] = new View[9] ;
     TableLayout table;
     TextView tv , instructions;
     Button watch, play;
     String computer = "", user = "";
-    static int ll=1;
-    int LEVEL = 1;
+    static int LEVEL = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.textView);
         instructions = (TextView) findViewById(R.id.instructions);
 
-        String level = "  Level " + LEVEL;
+        String level = " Level " + LEVEL;
         tv.setText(level);
         tv.setTextSize(43);
 
@@ -121,42 +120,53 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    setall();
-                    v.getBackground().setAlpha(255);
-                    String temp = "" + v.getTag();
+                    try {
 
-                    Log.d("UID  UID \t\t : ", temp);
-//                    int last_no = (Integer.parseInt(temp.substring(temp.length() - 1)) + 3) % 10;
-                    Log.d("ID", "" + temp);
-                    user += temp + " ";
-
-                    Log.d("user \t\t : ", user);
-                    Log.d("computer \t : ", computer);
-
-                    if (user.equals(computer)) {
-
-                        LEVEL += 1;
-                        String level = "  Level " + LEVEL;
-                        tv.setText(level);
-                        tv.setTextSize(43);
-                        reset();
                         setall();
-                        MainActivity.super.onStart();
+                        v.getBackground().setAlpha(255);
+                        String temp = "" + v.getTag();
+                        user += temp + " ";
+
+                        //                    int last_no = (Integer.parseInt(temp.substring(temp.length() - 1)) + 3) % 10;
+
+                        Log.d("User pattern \t\t : ", user);
+                        Log.d("Computer pattern \t : ", computer);
+
+                        if (user.equals(computer)) {
+
+                            LEVEL += 1;
+                            String level = "  Level " + LEVEL;
+                            tv.setText(level);
+                            tv.setTextSize(43);
+
+                            new Handler().postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    ;
+                                }
+                            }, 500);
+                            reset();
+                            setall();
+                            MainActivity.super.onStart();
+                        }
+
+                        if (!user.equals(computer.substring(0, user.length()))) {
+
+                            Log.d("User pattern \t\t : ", "_" + user + "_");
+                            Log.d("Computer pattern \t : ", "_" + computer.substring(0, user.length()) + "_");
+                            reset();
+                            setall();
+                        }
                     }
-
-                    if (!user.equals(computer.substring(0, user.length()))) {
-
-                        Log.d("user sub \t\t : ", "__" + user + "__");
-                        Log.d("computer sub \t : ", "__" + computer.substring(0, user.length()) + "__");
-                        reset();
+                    catch (Exception e) {
+                        Toast.makeText(MainActivity.this, "Wrong Pattern !! \n\n  TRY AGAIN !", Toast.LENGTH_SHORT).show();
+                        play.setEnabled(false);
+                        watch.setEnabled(true);
                         setall();
-//                        Log.d("\n\nuser sub \t\t : ", "__" + user + "__");
-//                        Log.d("computer sub \t : ", "__" + computer.substring(0, user.length()) + "__");
-
+                        user = computer = "";
                     }
-
                 }
-
             });
         }
         super.onStart();
@@ -166,9 +176,9 @@ public class MainActivity extends AppCompatActivity {
     public void reset() {
 
         if(!user.equals(computer))
-            Toast.makeText(this, "Wrong Pattern !! \n\n  TRY AGAIN !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Wrong Pattern !! \n\n  TRY AGAIN !", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(this, " Congratulations , you've advanced to the next round ", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, " Congratulations , you've advanced to the next round ", Toast.LENGTH_SHORT).show();
         play.setEnabled(false);
         watch.setEnabled(true);
         user = computer = "";
@@ -197,9 +207,9 @@ public class MainActivity extends AppCompatActivity {
         } while (rand == last);
 
         computer += rand + " ";
-        Log.d(" i :", "" + level);
-        Log.d(" random :", "" + rand);
-        Log.d("Outside Handler ", "" + color[rand].getBackground().getAlpha());
+        Log.d(" Level :", "" + level);
+        Log.d(" Random id  :", "" + rand);
+        Log.d(" Value of selected id ", "" + color[rand].getBackground().getAlpha());
         color[rand].getBackground().setAlpha(255);
         final int num = level, random = rand;
 
